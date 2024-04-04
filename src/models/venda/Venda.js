@@ -38,7 +38,7 @@ class Venda{
     }
 
     async criar() {
-        console.log("Entrei")
+
         camposInvalidos = [];
         campos.forEach((campo) => {
             const valor = this[campo];
@@ -92,20 +92,23 @@ class Venda{
 
     validarCampo(campo, valor) {
 
-
+        //validação campos string obrigatórios
         if ((campo === 'status' || campo === 'data_venda') && (typeof (valor) !== 'string' || valor.length === 0) ) {
             return false;
         }
 
+        //validação de campos number obrigatórios
         if ((campo === 'valor_total' || campo === 'id_cliente' || campo === 'id_canal_venda') && (typeof (valor) !== 'number')) {
             return false;
         }
 
+        //validação de campos number não-obrigatórios
         if ((campo === 'id_pagamento' || campo === 'id_incidente' || campo === 'id_endereco_entrega') && 
             (typeof (valor) !== 'number' && (valor != null || valor != undefined))){
                 return false;
         }
 
+        //validação de campos boolean obrigatórios
         if ((campo === 'publicidade' || campo === 'venda_real') && (typeof (valor) !== 'boolean')) {
             return false;
         }

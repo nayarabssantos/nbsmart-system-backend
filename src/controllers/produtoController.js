@@ -1,11 +1,12 @@
-const Venda = require('../models/venda/Venda.js');
 
-class VendaController{
+const Produto = require('../models/produto/Produto.js');
 
-    static async listarVendas(req, res){
+class ProdutoController{
+
+    static async listarProdutos(req, res){
         try{
-            const listaVendas = await Venda.listar();
-            res.status(200).json(listaVendas);
+            const listaProdutos = await Produto.listar();
+            res.status(200).json(listaProdutos);
 
         }catch(erro){
             res.status(500).json({
@@ -14,13 +15,13 @@ class VendaController{
         }
     }
 
-    static async listarVendasPorId(req, res){
+    static async listarProdutosPorId(req, res){
         try{
             const id = req.params.id;
-            const venda = new Venda({id: id});
-            await venda.listarPorId();
+            const produto = new Produto({id: id});
+            await produto.listarPorId();
 
-            res.status(200).json(venda);
+            res.status(200).json(produto);
 
         }catch(erro){
             res.status(500).json({
@@ -29,14 +30,14 @@ class VendaController{
         }
     }
 
-    static async cadastrarVenda(req, res){
+    static async cadastrarProduto(req, res){
         try{
             const dadosRecebidos = req.body;
-            const venda = new Venda(dadosRecebidos);
-            console.log (venda)
-            await venda.criar();
+            const produto = new Produto(dadosRecebidos);
+            console.log (produto)
+            await produto.criar();
 
-            res.status(201).json(venda);
+            res.status(201).json(produto);
         }catch(erro){
             res.status(500).json({
                 message: `${erro.message} - falha na requisição` 
@@ -44,14 +45,14 @@ class VendaController{
         }
     }
 
-    static async atualizarVenda(req, res){
+    static async atualizarProduto(req, res){
         try{
             const id = req.params.id;
             const dadosRecebidos = req.body;
             const dados = Object.assign({}, dadosRecebidos, {id: id});
-            const venda = new Venda(dados);
+            const produto = new Produto(dados);
 
-            await venda.atualizar();
+            await produto.atualizar();
             res.status(204).end();
         }catch(erro){
             res.status(500).json({
@@ -61,13 +62,13 @@ class VendaController{
 
     }
 
-    static async excluirVenda(req, res){
+    static async excluirProduto(req, res){
         try{
             const id = req.params.id;
-            const venda = new Venda({id: id});
+            const produto = new Produto({id: id});
             
-            await venda.listarPorId();
-            await venda.remover();
+            await produto.listarPorId();
+            await produto.remover();
             
             res.status(204);
             res.end()
@@ -82,4 +83,4 @@ class VendaController{
 
 
 
-module.exports = VendaController;
+module.exports = ProdutoController;
