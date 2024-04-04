@@ -19,6 +19,20 @@ class Venda{
         const vendas = await TabelaVenda.listar();
         return vendas;
     }
+
+    async listarPorId() {
+        const vendaEncontrada = await TabelaVenda.listarPorId(this.id);
+        this.id_cliente = vendaEncontrada.id_cliente;
+        this.data_venda = vendaEncontrada.data_venda;
+        this.valor_total = vendaEncontrada.valor_total;
+        this.status = vendaEncontrada.status;
+        this.id_canal_venda = vendaEncontrada.id_canal_venda;
+        this.id_pagamento = vendaEncontrada.id_pagamento;
+        this.publicidade = vendaEncontrada.publicidade;
+        this.venda_real = vendaEncontrada.venda_real;
+        this.id_incidente = vendaEncontrada.id_incidente;
+        this.id_endereco_entrega = vendaEncontrada.id_endereco_entrega;
+    }
     
 }
 

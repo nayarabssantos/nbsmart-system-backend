@@ -5,4 +5,6 @@ const routes = express.Router();
 
 routes.get('/vendas/', VendaController.listarVendas);
 
+routes.get('/vendas/:id', VendaController.listarVendasPorId);
+
 module.exports = routes;
