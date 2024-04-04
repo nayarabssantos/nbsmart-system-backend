@@ -1,5 +1,5 @@
-import express from 'express';
-import vendas from './vendasRoutes.js';
+const express =require('express');
+const vendas =require('./vendasRoutes.js');
 
 const routes = (app) => {
     app.route('/').get((req, res) => res.status(200).send("Bem Vindo ao NB Smart System!!"));
@@ -7,4 +7,4 @@ const routes = (app) => {
     app.use(express.json(), vendas);
 };
 
-export default routes;
+module.exports = routes;
