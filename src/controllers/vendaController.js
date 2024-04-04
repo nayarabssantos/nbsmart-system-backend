@@ -30,6 +30,21 @@ class VendaController{
         }
     }
 
+    static async cadastrarVenda(req, res){
+        try{
+            const dadosRecebidos = req.body;
+            const venda = new Venda(dadosRecebidos);
+            console.log (venda)
+            await venda.criar();
+
+            res.status(201).json(venda);
+        }catch(erro){
+            res.status(500).json({
+                message: `${erro.message} - falha na requisição` 
+            })
+        }
+    }
+
 }
 
 

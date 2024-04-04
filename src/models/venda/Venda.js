@@ -1,5 +1,8 @@
 const TabelaVenda =require('./TabelaVenda');
 
+const campos = ['id_cliente', 'data_venda', 'valor_total', 'status', 'id_canal_venda', 'id_pagamento', 'publicidade', 'venda_real', 'id_incidente', 'id_endereco_entrega'];
+let camposInvalidos = [];
+
 class Venda{
     constructor({ id, id_cliente, data_venda, valor_total, status, id_canal_venda, id_pagamento, publicidade, venda_real, id_incidente, id_endereco_entrega }) {
         this.id = id;
@@ -32,6 +35,57 @@ class Venda{
         this.venda_real = vendaEncontrada.venda_real;
         this.id_incidente = vendaEncontrada.id_incidente;
         this.id_endereco_entrega = vendaEncontrada.id_endereco_entrega;
+    }
+
+    async criar() {
+        console.log("Entrei")
+        camposInvalidos = [];
+        campos.forEach((campo) => {
+            const valor = this[campo];
+            if (!this.validarCampo(campo, valor)){
+                camposInvalidos.push(campo);
+            }
+        });
+        if (camposInvalidos.length> 0){
+            throw new Error('campos Invalidos');
+        }
+        
+        const resultado = await TabelaVenda.inserir({
+            id_cliente: this.id_cliente,
+            data_venda: this.data_venda,
+            valor_total: this.valor_total,
+            status: this.status,
+            id_canal_venda: this.id_canal_venda,
+            id_pagamento: this.id_pagamento,
+            publicidade: this.publicidade,
+            venda_real: this.venda_real,
+            id_incidente: this.id_incidente,
+            id_endereco_entrega: this.id_endereco_entrega
+        });
+        this.id = resultado.id;
+    }
+
+    validarCampo(campo, valor) {
+
+
+        if ((campo === 'status' || campo === 'data_venda') && (typeof (valor) !== 'string' || valor.length === 0) ) {
+            return false;
+        }
+
+        if ((campo === 'valor_total' || campo === 'id_cliente' || campo === 'id_canal_venda') && (typeof (valor) !== 'number')) {
+            return false;
+        }
+
+        if ((campo === 'id_pagamento' || campo === 'id_incidente' || campo === 'id_endereco_entrega') && 
+            (typeof (valor) !== 'number' && (valor != null || valor != undefined))){
+                return false;
+        }
+
+        if ((campo === 'publicidade' || campo === 'venda_real') && (typeof (valor) !== 'boolean')) {
+            return false;
+        }
+
+        return true;
     }
     
 }

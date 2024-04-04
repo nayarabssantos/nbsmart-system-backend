@@ -17,5 +17,8 @@ module.exports={
         }
 
         return vendaEncontrada;
+    },
+    inserir(venda){
+        return Modelo.create(venda);
     }
 };
