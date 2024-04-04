@@ -4,6 +4,7 @@ module.exports={
     listar () {
         return Modelo.findAll({raw: true});
     },
+
     async listarPorId(id){
         const vendaEncontrada = await Modelo.findOne({
             where: {
@@ -18,7 +19,17 @@ module.exports={
 
         return vendaEncontrada;
     },
+
     inserir(venda){
         return Modelo.create(venda);
+    },
+    
+    async atualizar(id, dadosParaAtualizar){
+        return Modelo.update(
+            dadosParaAtualizar,
+            {
+                where: {id: id}
+            }
+        );
     }
 };

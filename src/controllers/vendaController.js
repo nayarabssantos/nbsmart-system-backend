@@ -45,6 +45,23 @@ class VendaController{
         }
     }
 
+    static async atualizarVenda(req, res){
+        try{
+            const id = req.params.id;
+            const dadosRecebidos = req.body;
+            const dados = Object.assign({}, dadosRecebidos, {id: id});
+            const venda = new Venda(dados);
+
+            await venda.atualizar();
+            res.status(204).end();
+        }catch(erro){
+            res.status(500).json({
+                message: `${erro.message} - falha na requisição` 
+            })
+        }
+
+    }
+
 }
 
 
