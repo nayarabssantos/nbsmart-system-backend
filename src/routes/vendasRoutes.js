@@ -11,4 +11,6 @@ routes.post("/vendas/", VendaController.cadastrarVenda);
 
 routes.put("/vendas/:id", VendaController.atualizarVenda);
 
+routes.delete("/vendas/:id", VendaController.excluirVenda);
+
 module.exports = routes;

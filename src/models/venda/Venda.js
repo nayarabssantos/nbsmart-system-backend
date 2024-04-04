@@ -65,6 +65,31 @@ class Venda{
         this.id = resultado.id;
     }
 
+    async atualizar() {
+        await TabelaVenda.listarPorId(this.id);
+
+        const dadosParaAtualizar = {};
+        camposInvalidos = [];
+
+        campos.forEach((campo) => {
+            const valor = this[campo];
+            if (!this.validarCampo(campo, valor)){
+                camposInvalidos.push(campo);
+            }else{
+                dadosParaAtualizar[campo] = valor;
+            }
+        });
+        if (camposInvalidos.length> 0){
+            throw new Error('campos Invalidos');
+        }
+
+        await TabelaVenda.atualizar(this.id, dadosParaAtualizar);
+    }
+
+    async remover() {
+        return TabelaVenda.remover(this.id);
+    }
+
     validarCampo(campo, valor) {
 
 
@@ -86,27 +111,6 @@ class Venda{
         }
 
         return true;
-    }
-
-    async atualizar() {
-        await TabelaVenda.listarPorId(this.id);
-
-        const dadosParaAtualizar = {};
-        camposInvalidos = [];
-
-        campos.forEach((campo) => {
-            const valor = this[campo];
-            if (!this.validarCampo(campo, valor)){
-                camposInvalidos.push(campo);
-            }else{
-                dadosParaAtualizar[campo] = valor;
-            }
-        });
-        if (camposInvalidos.length> 0){
-            throw new Error('campos Invalidos');
-        }
-
-        await TabelaVenda.atualizar(this.id, dadosParaAtualizar);
     }
     
 }

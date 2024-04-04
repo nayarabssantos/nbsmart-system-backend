@@ -23,7 +23,7 @@ module.exports={
     inserir(venda){
         return Modelo.create(venda);
     },
-    
+
     async atualizar(id, dadosParaAtualizar){
         return Modelo.update(
             dadosParaAtualizar,
@@ -31,5 +31,11 @@ module.exports={
                 where: {id: id}
             }
         );
+    },
+
+    remover(id){
+        return Modelo.destroy({
+            where: {id: id}
+        });
     }
 };

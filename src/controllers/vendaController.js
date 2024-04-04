@@ -62,6 +62,23 @@ class VendaController{
 
     }
 
+    static async excluirVenda(req, res){
+        try{
+            const id = req.params.id;
+            const venda = new Venda({id: id});
+            
+            await venda.listarPorId();
+            await venda.remover();
+            
+            res.status(204);
+            res.end()
+        }catch(erro){
+            res.status(500).json({
+                message: `${erro.message} - falha na requisição` 
+            })
+        }
+    }
+
 }
 
 
